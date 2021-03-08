@@ -1,4 +1,4 @@
-# Carlang
+![logo](logo.png)
 
 A simple and effective programming language which transpiles to JavaScript.
 
