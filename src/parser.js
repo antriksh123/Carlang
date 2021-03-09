@@ -1,4 +1,5 @@
 import parseVar from "./variables.js"
+import { isString, isNumber, isBool } from './utils/helpers.js'
 
 const AST = () => ({
     type: "File",
@@ -123,15 +124,19 @@ const parseProgram = (sourceCode, ast) => {
             const values = line.split(" ").slice(1)
             const statement = ConsoleStatement()
 
-            // statement.expression.arguments = values.map(value => {
-            //     if (isString(value)) {
-            //         return StringLiteral(cleanString(value))
-            //     }
-            //     else if (isNumber(value)) {
-            //         return NumericLiteral(value)
-            //     }
-            //     return Argument(value)
-            // })
+            statement.expression.arguments = values.map(value => {
+                if (isString(value)) {
+                    return StringLiteral(cleanString(value))
+                }
+                else if (isNumber(value)) {
+                    return NumericLiteral(value)
+                }
+                else if (isBool(value)) {
+                    return BooleanLiteral(value)
+                }
+                
+                return Argument(value)
+            })
 
             ast.program.body.push(statement)
         }

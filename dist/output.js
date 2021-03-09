@@ -1,7 +1,7 @@
 const hi = "hi";
 const num = 4;
 const checked = true;
-console.log();
+console.log(higtgtb);
 
 function john() {
   const variable = "variable";

@@ -1,15 +1,5 @@
- // Token types
- const STRING = "StringLiteral"
- const NUMBER = "NumericLiteral"
- const BOOLEAN = "BooleanLiteral"
- const ASSIGNMENT = "set"
-
- // Helper functions
- const isString = value => value.match(/"/g) !== null
- const isNumber = value => value.match(/[0-9]/g) !== null
- const isBool = value => value === "true" || value === "false"
- const isDeclaration = line => line.includes(ASSIGNMENT)
- const cleanString = str => str.replace(/"/g, "")
+import { isBool, isNumber, isString, isDeclaration, cleanString } from "./utils/helpers.js"
+import { NUMBER, STRING, BOOLEAN } from "./utils/tokenTypes.js"
 
  // Declarations AST Generators
  const VariableDeclaration = () => ({
@@ -30,7 +20,7 @@
      },
  })
 
-function parseVar(tokens, ast) {
+function parseVar(tokens) {
     if (isDeclaration(tokens)) {
         let value = tokens[tokens.length - 1]
         let type
