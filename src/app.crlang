@@ -4,4 +4,4 @@ func toEnglish ( word lang ) {
     log word
 }
 
-toEnglish ( word )
+toEnglish ( "hey" )

@@ -106,7 +106,10 @@ const parseProgram = (sourceCode, ast) => {
                     })
                 }
                 const varDecleration = parseVar(tokens, ast)
+                const logStatement = parseLog(lines[lineno])
+                
                 block.body.push(varDecleration)
+                block.body.push(logStatement)
             }
             ast.program.body.push(declaration)
         }

@@ -22,9 +22,20 @@ const ConsoleStatement = () => ({
     },
 })
 
-function parseLog(line) {   
-   if (isLog(line)) {
-        const values = line.split(" ").slice(1)
+function parseLog(line) {
+   let transformedTokens = []
+   const tokens = line.split(" ")
+   for (let i = 0; i < tokens.length; i++) {
+       const token = tokens[i]
+       if (token === "log") {
+           const index = tokens.indexOf('log')
+           transformedTokens = tokens.slice(index)
+           break
+       }
+   }
+
+   if (transformedTokens.includes('log')) {
+        const values = transformedTokens.slice(1)
         const statement = ConsoleStatement()
 
         statement.expression.arguments = values.map(value => {
