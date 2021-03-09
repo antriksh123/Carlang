@@ -3,7 +3,7 @@ import generator from '@babel/generator';
 
 import parse from "./parser.js";
 
-const code = fs.readFileSync("src/app.crlang", "utf8");
+const code = fs.readFileSync("src/app.sph", "utf8");
 
 // get the AST
 const ast = parse(code);
