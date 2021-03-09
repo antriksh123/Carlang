@@ -1,10 +1,6 @@
-const hi = "hi";
-const num = 4;
-const checked = true;
-console.log(hi);
+const spanishWord = "estar";
 
-function john(greeting, fret, chit) {
-  const variable = "variable";
+function toEnglish(word, lang) {
 }
 
-const variable = "variable";
+toEnglish(word);

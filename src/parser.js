@@ -29,19 +29,11 @@ const BlockStatement = () => ({
     body: [],
 })
 
-const ExpressionStatement = (obj, props) => ({
+const ExpressionStatement = (callee) => ({
     type: "ExpressionStatement",
     expression: {
         type: "CallExpression",
-        callee: {
-            type: "MemberExpression",
-            object: {
-                type: "Identifier",
-                name: obj,
-            },
-            ...props,
-            computed: false,
-        },
+        callee,
         arguments: [],
     }, 
 })
@@ -53,7 +45,10 @@ const Identifier = (name) => ({
 
 const FUNCTION = "func"
 
+const RESERVED_KEYWORDS = ["func", "new", "set"]
+
 const isFunction = line => line.includes(FUNCTION)
+const callFunction = value => typeof value === "string" && value !== '' && !RESERVED_KEYWORDS.includes(value) && /^[A-Za-z]+$/.test(value)
 
 const parseProgram = (sourceCode, ast) => {
     const lines = sourceCode.split("\n")
@@ -64,6 +59,26 @@ const parseProgram = (sourceCode, ast) => {
         
         let declaration = parseVar(tokens, ast)
         ast.program.body.push(declaration)
+
+        if (callFunction(tokens[0])) {
+            const functionIdentifier = Identifier(tokens[0])
+            const expression = ExpressionStatement(functionIdentifier)
+
+            let arguements = []
+            if (tokens[1] === '(') {
+                tokens.map((v, i) => {
+                    if (i > 1) {
+                        arguements.push(v)
+                    }
+                })
+                arguements = arguements.filter(arg => arg !== ')' && arg !== '{')
+                arguements.map(arg => {
+                    expression.expression.arguments.push(Identifier(arg))
+                })
+            }
+
+            ast.program.body.push(expression) 
+        }
 
         if (isFunction(tokens)) {
             let identifier = tokens[1]

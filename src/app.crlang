@@ -1,8 +1,7 @@
-set hi "hi"
-set num 4
-set checked false
-log hi
-func john ( greeting fret chit ) {
-    set variable "variable"
-    log variable
+set spanishWord "estar"
+
+func toEnglish ( word lang ) {
+    log word
 }
+
+toEnglish ( word )
